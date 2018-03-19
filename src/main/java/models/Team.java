@@ -1,8 +1,12 @@
 package models;
 
 
+import javax.persistence.*;
+import java.awt.datatransfer.FlavorEvent;
 import java.util.Set;
 
+@Entity
+@Table(name="teams")
 public class Team {
     private int id;
     private String name;
@@ -23,6 +27,9 @@ public class Team {
         this.manager = manager;
     }
 
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -31,6 +38,7 @@ public class Team {
         this.id = id;
     }
 
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -39,6 +47,7 @@ public class Team {
         this.name = name;
     }
 
+    @Column(name = "colours")
     public String getColours() {
         return colours;
     }
@@ -47,6 +56,7 @@ public class Team {
         this.colours = colours;
     }
 
+    @Column(name = "points")
     public int getPoints() {
         return points;
     }
@@ -55,6 +65,8 @@ public class Team {
         this.points = points;
     }
 
+    @OneToOne
+    @JoinColumn(name="manager_id")
     public Manager getManager() {
         return manager;
     }
@@ -63,6 +75,7 @@ public class Team {
         this.manager = manager;
     }
 
+    @OneToMany(mappedBy = "team", fetch=FetchType.EAGER)
     public Set<Player> getPlayers() {
         return players;
     }
@@ -71,6 +84,7 @@ public class Team {
         this.players = players;
     }
 
+    @ManyToMany(mappedBy = "teams", fetch = FetchType.EAGER)
     public Set<Competition> getCompetitions() {
         return competitions;
     }

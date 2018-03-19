@@ -1,7 +1,10 @@
 package models;
 
+import javax.persistence.*;
 import java.util.Set;
 
+@Entity
+@Table(name="competitions")
 public class Competition {
 
     private int id;
@@ -16,6 +19,9 @@ public class Competition {
         this.name = name;
     }
 
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -24,6 +30,7 @@ public class Competition {
         this.id = id;
     }
 
+    @Column(name="name")
     public String getName() {
         return name;
     }
@@ -32,6 +39,10 @@ public class Competition {
         this.name = name;
     }
 
+    @ManyToMany
+    @JoinTable(name = "competition_team",
+            joinColumns = {@JoinColumn(name="competition_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "team_id", nullable = false, updatable = false)})
     public Set<Team> getTeams() {
         return teams;
     }

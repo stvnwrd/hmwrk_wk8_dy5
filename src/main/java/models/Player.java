@@ -1,5 +1,9 @@
 package models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="players")
 public class Player {
     private int id;
     private String name;
@@ -17,6 +21,9 @@ public class Player {
         this.team = team;
     }
 
+    @Id
+    @GeneratedValue
+    @Column(name="id")
     public int getId() {
         return id;
     }
@@ -25,6 +32,7 @@ public class Player {
         this.id = id;
     }
 
+    @Column(name="name")
     public String getName() {
         return name;
     }
@@ -33,6 +41,7 @@ public class Player {
         this.name = name;
     }
 
+    @Column(name="age")
     public int getAge() {
         return age;
     }
@@ -41,6 +50,7 @@ public class Player {
         this.age = age;
     }
 
+    @Column(name="position")
     public String getPosition() {
         return position;
     }
@@ -49,6 +59,8 @@ public class Player {
         this.position = position;
     }
 
+    @ManyToOne
+    @JoinColumn(name="team_id", nullable=false)
     public Team getTeam() {
         return team;
     }

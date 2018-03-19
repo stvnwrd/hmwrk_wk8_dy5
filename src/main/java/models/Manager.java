@@ -1,5 +1,9 @@
 package models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="managers")
 public class Manager {
     private int id;
     private String name;
@@ -13,6 +17,9 @@ public class Manager {
         this.team = team;
     }
 
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -21,6 +28,7 @@ public class Manager {
         this.id = id;
     }
 
+    @Column(name="name")
     public String getName() {
         return name;
     }
@@ -29,6 +37,7 @@ public class Manager {
         this.name = name;
     }
 
+    @OneToOne(mappedBy = "manager")
     public Team getTeam() {
         return team;
     }
